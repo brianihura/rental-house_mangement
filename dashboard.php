@@ -11,10 +11,17 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Get current page for active state
+$current_page = basename($_SERVER['PHP_SELF']);
+
 // Fetch dashboard stats
 $totalTenants = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM tenants"))['total'];
 $overdueTenants = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS overdue FROM tenants WHERE balance > 5000"))['overdue'];
-$collectedAmount = 45000; // Replace with actual payments sum when payments table is added
+
+// Get current month's collected payments
+$currentMonth = date('Y-m'); // Format: 2025-05
+$paymentQuery = mysqli_query($conn, "SELECT SUM(amount) AS total FROM payments WHERE DATE_FORMAT(payment_date, '%Y-%m') = '$currentMonth'");
+$collectedAmount = mysqli_fetch_assoc($paymentQuery)['total'] ?? 0;
 
 $tenants = mysqli_query($conn, "SELECT * FROM tenants ORDER BY id ASC");
 ?>
@@ -38,6 +45,19 @@ $tenants = mysqli_query($conn, "SELECT * FROM tenants ORDER BY id ASC");
   </style>
 </head>
 <body>
+  <!-- Header Navigation - This will stay consistent across pages -->
+  <header class="main-header">
+    <div class="logo">
+      <h2>Household Management</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="dashboard.php" class="<?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">Dashboard</a></li>
+        <li><a href="tenants.php" class="<?php echo $current_page == 'tenants.php' ? 'active' : ''; ?>">Tenants</a></li>
+        <li><a href="payments.php" class="<?php echo $current_page == 'payments.php' ? 'active' : ''; ?>">Payments</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <div class="container">
     <h1>Admin Dashboard</h1>

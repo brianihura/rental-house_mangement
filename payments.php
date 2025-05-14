@@ -14,9 +14,11 @@ if (!$conn) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tenant_id = $_POST['tenant_id'];
     $amount = $_POST['amount'];
+    $payment_method = $_POST['payment_method'];
+    $reference = $_POST['reference'];
 
     // Insert payment record
-    $insert = "INSERT INTO payments (tenant_id, amount) VALUES ('$tenant_id', '$amount')";
+    $insert = "INSERT INTO payments (tenant_id, amount, payment_method, reference) VALUES ('$tenant_id', '$amount', '$payment_method', '$reference')";
     mysqli_query($conn, $insert);
 
     // Update tenant balance
@@ -56,11 +58,21 @@ $payments = mysqli_query($conn, "
     th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
   </style>
 </head>
+<header class="main-header">
+    <div class="logo">
+      <h2>Household Management</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="dashboard.php" class="<?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">Dashboard</a></li>
+        <li><a href="tenants.php" class="<?php echo $current_page == 'tenants.php' ? 'active' : ''; ?>">Tenants</a></li>
+        <li><a href="payments.php" class="<?php echo $current_page == 'payments.php' ? 'active' : ''; ?>">Payments</a></li>
+      </ul>
+    </nav>
+  </header>
 <body>
 
 <div class="container">
-  <h1>Payment Management</h1>
-
   <!-- New Payment Form -->
   <form method="POST" action="payments.php">
     <div class="form-group">
@@ -76,6 +88,21 @@ $payments = mysqli_query($conn, "
       <label for="amount">Payment Amount</label>
       <input type="number" name="amount" step="0.01" required />
     </div>
+    <div class="form-group">
+      <label for="payment_method">Payment Method</label>
+      <select name="payment_method" required>
+        <option value="">-- Select Payment Method --</option>
+        <option value="Cash">Cash</option>
+        <option value="M-Pesa">M-Pesa</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Debit/Credit Card">Debit/Credit Card</option>
+        <option value="Cheque">Cheque</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="reference">Reference/Transaction ID</label>
+      <input type="text" name="reference" placeholder="e.g., M-Pesa code, cheque no." />
+    </div>
     <button type="submit" class="btn">Record Payment</button>
   </form>
 
@@ -87,6 +114,8 @@ $payments = mysqli_query($conn, "
         <th>#</th>
         <th>Tenant</th>
         <th>Amount (KSH)</th>
+        <th>Payment Method</th>
+        <th>Reference</th>
         <th>Date</th>
       </tr>
     </thead>
@@ -96,6 +125,8 @@ $payments = mysqli_query($conn, "
           <td><?= $i++; ?></td>
           <td><?= htmlspecialchars($row['name']); ?></td>
           <td><?= number_format($row['amount'], 2); ?></td>
+          <td><?= htmlspecialchars($row['payment_method'] ?? 'N/A'); ?></td>
+          <td><?= htmlspecialchars($row['reference'] ?? ''); ?></td>
           <td><?= date("d M Y H:i", strtotime($row['payment_date'])); ?></td>
         </tr>
       <?php endwhile; ?>

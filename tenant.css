@@ -29,7 +29,7 @@ body {
   padding: 20px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   color: var(--primary);
   margin-bottom: 20px;
   padding-bottom: 10px;
@@ -44,6 +44,40 @@ h1 {
 h2 {
   font-size: 1.5rem;
   margin-top: 30px;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-top: 25px;
+  border-bottom: 1px solid var(--light);
+}
+
+/* Card styles */
+.card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 10px 0;
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
 }
 
 /* Form styles */
@@ -62,7 +96,9 @@ label {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="date"],
+select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -72,7 +108,255 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: var(--secondary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+button {
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: white;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+tr:hover {
+  background-color: rgba(236, 240, 241, 0.6);
+}
+
+/* Button styles */
+.actions {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark);
+  transform: translateY(-2px);
+}
+
+.btn-small {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-right: 5px;
+  background-color: var(--secondary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  transition: all 0.3s;
+}
+
+.view {
+  background-color: var(--dark);
+}
+
+.back {
+  background-color: #7f8c8d;
+}
+
+.danger {
+  background-color: var(--danger);
+}
+
+.success {
+  background-color: var(--success);
+}
+
+.btn-small:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: var(--success);
+}
+
+.btn-success:hover {
+  background-color: #219653;
+}
+
+/* Tenant Details Section */
+.tenant-details {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.details-card {
+  background-color: var(--light);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+}
+
+.details-card p {
+  margin-bottom: 10px;
+}
+
+.details-card strong {
+  color: var(--dark);
+}
+
+.payment-history {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.no-records {
+  font-style: italic;
+  color: #777;
+  padding: 10px 0;
+}
+
+/* Multi-column form layout */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.form-group {
+  flex: 1;
+  padding: 0 10px;
+  min-width: 250px;
+}
+
+.payment-form {
+  background-color: #f8f9fa;
+  border-left: 3px solid var(--success);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .form-group {
+    flex: 100%;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+} h2, h3 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--light);
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 30px;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-top: 25px;
+  border-bottom: 1px solid var(--light);
+}
+
+/* Form styles */
+form {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
   border-color: var(--secondary);
   outline: none;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
@@ -135,6 +419,10 @@ tr:hover {
   transition: all 0.3s;
 }
 
+.view {
+  background-color: var(--dark);
+}
+
 .danger {
   background-color: var(--danger);
 }
@@ -142,6 +430,68 @@ tr:hover {
 .btn-small:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: var(--success);
+}
+
+.btn-success:hover {
+  background-color: #219653;
+}
+
+/* Tenant Details Section */
+.tenant-details {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.details-card {
+  background-color: var(--light);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+}
+
+.details-card p {
+  margin-bottom: 10px;
+}
+
+.details-card strong {
+  color: var(--dark);
+}
+
+.payment-history {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.no-records {
+  font-style: italic;
+  color: #777;
+  padding: 10px 0;
+}
+
+/* Multi-column form layout */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.form-group {
+  flex: 1;
+  padding: 0 10px;
+  min-width: 250px;
+}
+
+.payment-form {
+  background-color: #f8f9fa;
+  border-left: 3px solid var(--success);
 }
 
 /* Responsive adjustments */
@@ -154,4 +504,53 @@ tr:hover {
   .container {
     padding: 10px;
   }
+  
+  .form-group {
+    flex: 100%;
+  }
+}
+.main-header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-header .logo h2 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.main-header nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header nav ul li {
+  margin-left: 1rem;
+}
+
+.main-header nav ul li a {
+  color: #555;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.main-header nav ul li a:hover {
+  background-color: #f0f2f5;
+}
+
+.main-header nav ul li a.active {
+  background-color: #3182ce;
+  color: white;
 }
